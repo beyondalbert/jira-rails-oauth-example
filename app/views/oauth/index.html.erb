@@ -1,0 +1,10 @@
+<h1><%= flash[:notice] unless flash[:notice].nil? %></h1>
+<%= link_to 'jira认证', {:controller => 'oauth', :action => 'authorize'} %>
+<% if session[:access_token].nil? %>
+	<h1>未认证</h1>
+<% else %>
+	<h1>认证成功！</h1>
+	<h2>access_token: <%= session[:access_token] %></h2>
+	<h2>access_token_secret: <%= session[:access_token_secret] %></h2>
+	<%= link_to 'jira认证测试', {:controller => 'oauth', :action => 'auth_test'} %>
+<% end %>
