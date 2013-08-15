@@ -18,14 +18,22 @@ rails如何通过OAuth，从jira平台抓取数据
 
 ### 生成RSA密钥对（linux下示例）
 
-    openssl genrsa -out jira.pem 1024
-    openssl rsa -in jira.pem -pubout -out jira.pub
+    openssl genrsa -out jira-rsa.pem 1024
+    openssl rsa -in jira-rsa.pem -pubout -out jira-rsa.pub
 
 In this example, jira.pem is the private key file; and jira.pub is the public key.
 
-## rails通过OAuth连接jira
+## rails通过OAuth连接jira：
 
+具体的认证过程可参看代码
 
+## 示例试用：
+
+* 1、本地启一个jira的开发环境，作为服务端（如果有真实的jira平台，该过程就可免）；
+
+* 2、配置好jira的 Oauth 服务；
+
+* 3、clone本代码，设置好rails环境，启动rails服务
 
 
 
