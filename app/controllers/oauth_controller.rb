@@ -59,10 +59,15 @@ class OauthController < ApplicationController
 		@access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:access_token_secret])
 
 		# TESTFT-1为jira中一个issue的id值，更多jira api接口请查看jira接口文档
-		issue_info = @access_token.get(@@jira_host + "/rest/api/latest/issue/TESTFT-1")
-		p "----------------->issue info:"
-		p JSON.parse(issue_info.body)
-		flash[:notice] = "jira认证测试成功，jira中的issue信息请看log！"
-		redirect_to :controller => "oauth", :action => "index"
+		issue_info = @access_token.get(@@jira_host + "/rest/api/latest/issue/TESTFT-300")
+		if issue_info.code == "404"
+			flash[:notice] = "请求的资源不存在，请去jira上确认是否存在该资源！"
+			redirect_to :controller => "oauth", :action => "index"
+		else
+			p "----------------->issue info:"
+			p JSON.parse(issue_info.body)
+			flash[:notice] = "jira认证测试成功，jira中的issue信息请看log！"
+			redirect_to :controller => "oauth", :action => "index"
+		end
 	end
 end
